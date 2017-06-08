@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from __future__ import print_function
 
-def encrypt(in_file,out_file):
+def encrypt(in_file,out_file,key=[255]):
   """
   This function takes a file a xor each byte with 255
   It will then write this "anti-file" to the disk
@@ -14,7 +14,7 @@ def encrypt(in_file,out_file):
   with open(in_file,"rb") as f:
     content = bytearray(f.read()) # bytearrays are mutable unlike bytes
   for i,b in enumerate(content):
-    content[i] = 255 ^ b # ^ means bitwise XOR
+    content[i] = b ^ key[i%len(key)] # ^ means bitwise XOR
   with open(out_file,"wb") as f:
     f.write(content)
 
@@ -26,4 +26,5 @@ if __name__ == "__main__":
   # If calling the file directly: prompt the files and run it once
   f_in = input("File to encrypt?> ")
   f_out = input("File to write (will be overwritten!)> ")
-  encrypt(f_in,f_out)
+  key = input("Key? (leave empty for 255)> ").encode("utf-8") or [255]
+  encrypt(f_in,f_out,key)
