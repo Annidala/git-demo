@@ -26,5 +26,5 @@ if __name__ == "__main__":
   # If calling the file directly: prompt the files and run it once
   f_in = input("File to encrypt?> ")
   f_out = input("File to write (will be overwritten!)> ")
-  key = input("Key? (leave empty for 255)> ").encode("utf-8") or [255]
+  key = bytearray(input("Key? (leave empty for 255)> "),"utf-8") or [255]
   encrypt(f_in,f_out,key)
