@@ -25,6 +25,7 @@ def encrypt(in_file,out_file,key=[255],blocksize=4096):
           content[i] = b ^ key[(offset+i)%len(key)] # ^ means bitwise XOR
         fo.write(content)
         offset += len(content)
+  print("Encrypted",offset,"bytes")
 
 if __name__ == "__main__":
   import sys
