@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from __future__ import print_function
 
-def encrypt(in_file,out_file,key=[255]):
+def encrypt(in_file,out_file,key=[255],blocksize=4096):
   """
   This function takes a file a xor each byte with 255
   It will then write this "anti-file" to the disk
@@ -13,12 +13,18 @@ def encrypt(in_file,out_file,key=[255]):
   NOTE: This encryption is NOT safe and should NOT be used
   to protect your data!
   """
-  with open(in_file,"rb") as f:
-    content = bytearray(f.read()) # bytearrays are mutable unlike bytes
-  for i,b in enumerate(content):
-    content[i] = b ^ key[i%len(key)] # ^ means bitwise XOR
-  with open(out_file,"wb") as f:
-    f.write(content)
+  offset = 0
+  with open(in_file,"rb") as fi:
+    with open(out_file,"wb") as fo:
+      while True:
+        # bytearrays are mutable unlike bytes
+        content = bytearray(fi.read(blocksize)) # Read chunks of the file
+        if len(content) == 0: # Means we are done!
+          break
+        for i,b in enumerate(content):
+          content[i] = b ^ key[(offset+i)%len(key)] # ^ means bitwise XOR
+        fo.write(content)
+        offset += len(content)
 
 if __name__ == "__main__":
   import sys
