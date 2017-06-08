@@ -1,12 +1,6 @@
 #!/usr/bin/python3
 from __future__ import print_function
 
-import sys
-
-if sys.version_info.major < 3:
-  # For input to return a string and not execute the input in Python 2
-  input = raw_input
-
 def encrypt(in_file,out_file):
   """
   This function takes a file a xor each byte with 255
@@ -25,6 +19,10 @@ def encrypt(in_file,out_file):
     f.write(content)
 
 if __name__ == "__main__":
+  import sys
+  if sys.version_info.major < 3:
+    # For input to return a string and not execute the input in Python 2
+    input = raw_input
   # If calling the file directly: prompt the files and run it once
   f_in = input("File to encrypt?> ")
   f_out = input("File to write (will be overwritten!)> ")
