@@ -1,4 +1,10 @@
 #!/usr/bin/python3
+from __future__ import print_function
+
+import sys
+
+if sys.version_info.major < 3:
+  input = raw_input
 
 def encrypt(in_file,out_file):
   with open(in_file,"rb") as f:
