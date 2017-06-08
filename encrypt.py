@@ -10,6 +10,8 @@ def encrypt(in_file,out_file,key=[255]):
   args:
     in_file (str): Name of the input file
     out_file (str): Name of the output file
+  NOTE: This encryption is NOT safe and should NOT be used
+  to protect your data!
   """
   with open(in_file,"rb") as f:
     content = bytearray(f.read()) # bytearrays are mutable unlike bytes
